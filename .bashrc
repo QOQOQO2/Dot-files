@@ -8,3 +8,11 @@ fi
 alias clear='reset'
 
 export TERMINAL=kitty
+
+npl() {
+	nix profile list \
+		| grep Name: \
+		| sed 's/Name://g' \
+		| sed 's/ //g' \
+		| sed 's/\x1b\[[0-9;]*m//g'
+}
