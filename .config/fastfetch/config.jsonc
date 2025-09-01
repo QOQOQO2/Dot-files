@@ -3,8 +3,8 @@
   "logo": {
     "source": "~/.config/fastfetch/nix.txt",
     "padding": {
-      "top": 1,
-      },
+      "top": 1
+      }
   },
   "modules": [
     "title",
