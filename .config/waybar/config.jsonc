@@ -5,9 +5,9 @@
   "spacing": 10,
   "reload_style_on_change": true,
 
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": ["hyprland/workspaces", "custom/user@host"],
   "modules-center": ["clock"],
-  "modules-right": ["tray", "custom/user@host", "pulseaudio/slider", "pulseaudio", "network", "battery", "custom/lock", "custom/reboot", "custom/shutdown"],
+  "modules-right": ["tray", "pulseaudio/slider", "pulseaudio", "network", "battery", "custom/lock", "custom/reboot", "custom/shutdown"],
 
   "hyprland/workspaces": {
     "on-click": "activate",
