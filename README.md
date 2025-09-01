@@ -1,6 +1,7 @@
 # Dot files
 Really messy hyprland and nixos configurations
 
+[Kitty config credits](https://github.com/IhTiYaR0/Hyprland-Config/tree/main)
 
 | Packages            |
 |---------------------|
@@ -26,6 +27,6 @@ Really messy hyprland and nixos configurations
 | lf                  |
 | mpv                 |
 | neovim              |
-| obs-studio
+| obs-studio          |
 
 
