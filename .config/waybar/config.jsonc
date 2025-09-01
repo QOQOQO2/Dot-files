@@ -1,0 +1,126 @@
+{
+  "layer": "top",
+  "position": "top",
+  "width": 1920,
+  "spacing": 10,
+  "reload_style_on_change": true,
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "custom/user@host", "pulseaudio/slider", "pulseaudio", "network", "battery", "custom/lock", "custom/reboot", "custom/shutdown"],
+
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "all-outputs": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "1": "󰈹 ",
+      "2": " ",
+      "3": " ",
+      "4": " ",
+      "5": " ",
+      "active": " ",
+      "default": " "
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+
+  "custom/user@host": {
+    "exec": "echo $(whoami)@$(hostname)",
+    "interval": 3600,
+    "format": " {}",
+    "tooltip": false
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:%H:%M:%S}",
+    "format-alt": "{:%a, %b %d}",
+    "locale": "en_US.UTF-8",
+    "tooltip": true,
+    "tooltip-format": "{calendar}",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-down": "shift_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "tz_up",
+      "on-scroll-up": "tz_down"
+    }
+  },
+
+  "pulseaudio": {
+    "on-click": "pavucontrol",
+    "on-click-right": "blueman-manager",
+    "format": "{icon}{volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "default": [" ", " ", " "]
+    }
+  },
+
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 50,
+    "orientation": "horizontal"
+  },
+
+  "network": {
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈁 Ethernet",
+    "format-disconnected": "⚠ Disconnected",
+    "tooltip": true
+  },
+
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-charging": " {capacity}%",
+    "format-icons": [" ", " ", " ", " ", " "],
+    "interval": 30
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  },
+
+  "custom/lock": {
+    "format": "  ",
+    "on-click": "hyprlock",
+    "on-click-right": "systemctl suspend",
+    "tooltip": true,
+    "tooltip-format": "Lock (lmb) Suspend (rmb)"
+  },
+
+  "custom/reboot": {
+    "format": "  ",
+    "on-click": "systemctl reboot",
+    "tooltip": true,
+    "tooltip-format": "Reboot"
+  },
+
+  "custom/shutdown": {
+    "format": "  ",
+    "on-click": "systemctl shutdown",
+    "tooltip": true,
+    "tooltip-format": "Shutdown"
+  }
+}
