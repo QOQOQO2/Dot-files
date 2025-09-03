@@ -117,4 +117,4 @@ cmd zip ${{
 set promptfmt "\033[1;34m%w \033[1;37m>\033[0;37m "
 set hidden true
 set icons true
-
+set info size 
