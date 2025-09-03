@@ -1,4 +1,3 @@
-# Dot files
 Really messy hyprland and nixos configurations
 
 [Kitty config credits](https://github.com/IhTiYaR0/Hyprland-Config/tree/main)
@@ -28,5 +27,18 @@ Really messy hyprland and nixos configurations
 | mpv                 |
 | neovim              |
 | obs-studio          |
-
+| pavucontrol         |
+| pciutils            |
+| playerctl           |
+| python3             |
+| slurp               |
+| steam               |
+| swaylock            |
+| usbutils            |
+| waybar              |
+| wireplumber         |
+| wl-clip-persist     |
+| wl-clipboard        |
+| wofi                |
+| xarchiver           |
 
