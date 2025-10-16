@@ -1,5 +1,5 @@
 * {
-  font-family: "nerd-fonts.fira-mono", monospace;
+  font-family: "CaskaydiaCove Nerd Font", monospace;
   font-weight: bold;
   font-size: 13px;
   color: #c0caf5;
@@ -9,7 +9,7 @@ window#waybar {
   background-color: rgb(39, 45, 59);
   border: 2px solid rgb(92, 153, 225);
   color: #c0caf5;
-  font-family: "nerd-fonts.fira-mono", monospace;
+  font-family: "CaskaydiaCove Nerd Font", monospace;
   font-weight: bold;
   font-size: 10px;
   transition-property: background-color;

@@ -34,13 +34,7 @@
       "temp": true
     },
     "memory",
-    "swap",
-    "disk",
-    {
-      "type": "localip",
-      "showIpv4": false,
-      "showPrefixLen": true
-    },
+    "disk", 
     "battery",
     "poweradapter",
     "locale",

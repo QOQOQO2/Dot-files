@@ -2,7 +2,9 @@
 
 Really messy hyprland config
 
-![screenshot](./screenshot.png)
+## Screenshots
+![](./screenshot.png)
+![](./hyprlock.png)
 
 ## Credits
 [Kitty Config Credits](https://github.com/IhTiYaR0/Hyprland-Config/tree/main)
