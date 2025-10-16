@@ -12,4 +12,4 @@ Really messy hyprland config
 [Additional Credits](https://github.com/Mon4sm/monasm-dots/tree/main)
 
 ## Other
-[Firefox Theme](https://addons.mozilla.org/en-US/firefox/addon/qoqoqo2-personal-theme/)
+[Firefox Theme](https://addons.mozilla.org/en-US/firefox/addon/qoqoqo2-theme/)
