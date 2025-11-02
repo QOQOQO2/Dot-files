@@ -2,11 +2,13 @@
 
 Really messy hyprland config
 
-## Stuff I use
-Window Manager - Hyprland
-Terminal Emulator - Kitty
-Shell - Zsh ( There is also a Bash config )
-Launcher - Fuzzel
+## Stuff I Use
+
+- **Window Manager:** Hyprland  
+- **Terminal Emulator:** Kitty  
+- **Shell:** Zsh (also have a Bash config)  
+- **Launcher:** Fuzzel
+
 
 ## Screenshots
 ![](./screenshot.png)
