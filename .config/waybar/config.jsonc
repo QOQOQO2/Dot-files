@@ -5,9 +5,9 @@
   "spacing": 10,
   "reload_style_on_change": true,
 
-  "modules-left": ["hyprland/workspaces", "custom/user@host"],
+  "modules-left": ["hyprland/workspaces", "custom/user@host", "network", "battery", "tray"],
   "modules-center": ["clock"],
-  "modules-right": ["tray", "pulseaudio/slider", "pulseaudio", "network", "battery", "custom/lock", "custom/reboot", "custom/shutdown"],
+  "modules-right": ["cpu", "memory", "pulseaudio", "pulseaudio/slider", "custom/lock", "custom/reboot", "custom/poweroff"],
 
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -23,7 +23,7 @@
     "persistent-workspaces": {
       "1": [],
       "2": [],
-      "3": [],
+      "3": []
     }
   },
 
@@ -36,8 +36,8 @@
 
   "clock": {
     "interval": 1,
-    "format": "{:%H:%M:%S}",
-    "format-alt": "{:%a, %b. %d}",
+    "format": "{:%T}",
+    "format-alt": "{:%A, %B %d}",
     "locale": "en_US.UTF-8",
     "tooltip": true,
     "tooltip-format": "{calendar}",
@@ -57,9 +57,7 @@
     "actions": {
       "on-click-right": "mode",
       "on-scroll-down": "shift_down",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "tz_up",
-      "on-scroll-up": "tz_down"
+      "on-scroll-up": "shift_up"
     }
   },
 
@@ -112,10 +110,33 @@
     "tooltip-format": "Reboot"
   },
 
-  "custom/shutdown": {
+  "custom/poweroff": {
     "format": "  ",
-    "on-click": "Poweroff",
+    "on-click": "poweroff",
     "tooltip": true,
     "tooltip-format": "Poweroff"
-  }
+  },
+
+  "cpu": {
+      "interval": 1,
+      "format": "{usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
+      "format-icons": [
+
+            // All colors here are made by oklch(0.8029 0.0979 h) converted to rgb
+            "<span color='#9bbffe'>▁</span>", // light blue
+            "<span color='#6ad0e2'>▂</span>", // teal
+            "<span color='#87d2a6'>▃</span>", // lime
+            "<span color='#afca84'>▄</span>", // chartreuse
+            "<span color='#c3c479'>▅</span>", // yellow
+            "<span color='#dabb73'>▆</span>", // orange
+            "<span color='#f7a796'>▇</span>", // vermilion
+            "<span color='#f3a4bc'>█</span>"  // red
+      ]
+  },
+
+  "memory": {
+    "interval": 2,
+    "format": "{used:0.1f} GiB / {total:0.1f} GiB",
+    "tooltip-format": "{}% of memory used"
+  },
 }

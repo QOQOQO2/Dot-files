@@ -9,24 +9,16 @@ alias clear='reset'
 
 export TERMINAL=kitty
 
-npl() {
-  nix profile list \
-    | grep Name: \
-    | sed 's/Name://g' \
-    | sed 's/ //g' \
-    | sed 's/\x1b\[[0-9;]*m//g'
-}
+alias npl='nix profile list | grep Name: | sed "s/Name://g; s/ //g; s/\x1b\[[0-9;]*m//g"'
 
-ncg() {
-  nix-collect-garbage
-}
+alias ncg='nix-collect-garbage'
 
-ncgd() {
-  nix-collect-garbage -d
-}
+alias ncgd='nix-collect-garbage -d'
 
-ff() {
-  fastfetch
-}
+alias ff='fastfetch'
 
+## Steam stuff ##
 
+alias terraria='steam-run ~/.local/share/Steam/steamapps/common/Terraria/Terraria'
+
+alias tmodloader='steam-run ~/.local/share/Steam/steamapps/common/tModLoader/start-tModLoader.sh'
