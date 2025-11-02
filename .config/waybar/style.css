@@ -32,13 +32,15 @@ window#waybar {
 #custom-user\@host,
 #clock,
 #tray,
+#memory,
 #pulseaudio-slider,
 #pulseaudio,
+#cpu,
 #network,
 #battery,
 #custom-lock,
 #custom-reboot,
-#custom-shutdown {
+#custom-poweroff {
   border-radius: 4px;
   border-width: 0px;
   padding: 6px 9px;
@@ -77,11 +79,6 @@ window#waybar {
 #custom-user\@host {
   color: #c0caf5;
   background-color: #3d3d4e;
-}
-
-#tray {
-  color: #c0caf5;
-  background-color: #6488b9;
 }
 
 #pulseaudio-slider {
@@ -125,8 +122,11 @@ window#waybar {
   background-color: #67677a;
 }
 
+#tray,
+#cpu,
 #network,
-#battery {
+#battery,
+#memory {
   color: #c0caf5;
   background-color: #3d3d4e;
 }
@@ -149,11 +149,11 @@ window#waybar {
   background-color: #c5ffff;
 }
 
-#custom-shutdown {
+#custom-poweroff {
   color: #1c001b;
   background-color: #ffdbad;
 }
 
-#custom-shutdown:hover {
+#custom-poweroff:hover {
   background-color: #ffe9bb;
 }
