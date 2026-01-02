@@ -64,16 +64,26 @@
   "pulseaudio": {
     "on-click": "pavucontrol",
     "on-click-right": "blueman-manager",
-    "format": "{icon}{volume}%",
-    "format-muted": "",
+    "format": "{volume}% {icon}",
+    "format-muted": "mute",
     "format-icons": {
-      "default": [" ", " ", " "]
+      "default": [
+            // All colors here are made by oklch(0.8029 0.0979 h) converted to rgb
+            "<span color='#9bbffe'> </span>", // light blue
+            "<span color='#6ad0e2'> </span>", // teal
+            "<span color='#87d2a6'> </span>", // lime
+            "<span color='#afca84'> </span>", // charteuse
+            "<span color='#c3c479'> </span><span color='#c3c479'> </span>", // yellow         warning so i dont explode my ears: 
+            "<span color='#c3c479'> </span><span color='#dabb73'> </span>", // orange
+            "<span color='#c3c479'> </span><span color='#f7a796'> </span>", // vermilion
+            "<span color='#c3c479'> </span><span color='#f3a4bc'> </span>"  // red
+      ]
     }
   },
 
   "pulseaudio/slider": {
     "min": 0,
-    "max": 50,
+    "max": 100,
     "orientation": "horizontal"
   },
 
@@ -118,11 +128,12 @@
   },
 
   "cpu": {
+      "tooltip": true,
       "interval": 1,
-      "format": "{usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
+      "format": "{usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
       "format-icons": [
-
             // All colors here are made by oklch(0.8029 0.0979 h) converted to rgb
+            " ",
             "<span color='#9bbffe'>▁</span>", // light blue
             "<span color='#6ad0e2'>▂</span>", // teal
             "<span color='#87d2a6'>▃</span>", // lime
@@ -131,7 +142,7 @@
             "<span color='#dabb73'>▆</span>", // orange
             "<span color='#f7a796'>▇</span>", // vermilion
             "<span color='#f3a4bc'>█</span>"  // red
-      ]
+      ],
   },
 
   "memory": {
