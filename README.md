@@ -7,7 +7,7 @@ hyprland config idk
 - **Window Manager:** Hyprland  
 - **Terminal Emulator:** Kitty  
 - **Editor**: Nvim with Lazyvim
-- **Shell:** Zsh
+- **Shell:** Zsh WITH oh my zsh
 - **Launcher:** Fuzzel
 
 ## Screenshots
