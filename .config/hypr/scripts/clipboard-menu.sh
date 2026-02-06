@@ -5,27 +5,26 @@ choice="$(printf '%s\n' \
   "Show Clipboard History Count" \
   "Clear Fuzzel History" \
   "Clear Bemoji History" \
-  "Clear .cache" \
-  | fuzzel --dmenu)"
+  "Clear .cache" |
+  fuzzel --dmenu)"
 
 case "$choice" in
-  "Wipe Clipboard")
-    rm -f ~/.cache/cliphist/db
+"Wipe Clipboard")
+  rm -f ~/.cache/cliphist/db
   ;;
-  "Show Clipboard History Count")
-    cliphist list | wc -l | fuzzel --dmenu --prompt "Entries:"
+"Show Clipboard History Count")
+  cliphist list | wc -l | fuzzel --dmenu --prompt "Entries:"
   ;;
-  "Clear Fuzzel History")
-    rm -f ~/.cache/fuzzel
+"Clear Fuzzel History")
+  rm -f ~/.cache/fuzzel
   ;;
-  "Clear Bemoji History")
-    rm -f ~/.local/state/bemoji-history.txt
+"Clear Bemoji History")
+  rm -f ~/.local/state/bemoji-history.txt
   ;;
-  "Clear .cache")
-    rm -rf ~/.cache/*
+"Clear .cache")
+  rm -rf ~/.cache/* && mkdir -p ~/.cache/nvim && chown $USER:users ~/.cache/nvim
   ;;
-  *)
-    exit 0
+*)
+  exit 0
   ;;
 esac
-

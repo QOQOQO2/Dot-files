@@ -1,0 +1,29 @@
+.cal-box {
+  background-color: rgb(39, 45, 59); 
+  padding: 15px;
+  border: 2px solid rgb(92, 153, 225);
+}
+
+.cal-main {
+  background-color: rgb(21, 27, 40);
+  color: #cdd6f4;
+  font-family: "CaskaydiaCove Nerd Font", monospace;
+
+  &.header {
+    color: #f38ba8;
+  }
+
+  &:selected {
+    color: #1e1e2e;
+    background-color: #89b4fa;
+    border-radius: 5px;
+  }
+
+  &.day {
+    padding: 5px;
+  }
+
+  &:indeterminate {
+    color: rgba(205, 214, 244, 0.3);
+  }
+}

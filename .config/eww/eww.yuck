@@ -1,0 +1,22 @@
+(defwindow calendar
+  :monitor 0
+  :geometry (geometry :x "0%" 
+                      :y "10px" 
+                      :anchor "center top"
+                      :width "300px"
+                      :height "200px")
+  :stacking "fg"
+  :focusable true
+  :namespace "eww-calendar"
+  
+  (eventbox :onhoverlost "eww close calendar"
+  :onrightclick "eww close calendar"
+  (cal_widget)))
+
+(defwidget cal_widget []
+  (box :class "cal-box" 
+       :orientation "v"
+       :space-evenly false
+    (calendar :class "cal-main"
+              :hexpand true
+              :vexpand true)))
