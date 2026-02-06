@@ -1,0 +1,63 @@
+[global]
+monitor = 0
+follow = mouse
+offset = 20x20
+width = 350
+height = 300
+origin = top-right
+notification_limit = 15
+indicate_hidden = no
+shrink = no
+separator_height = 4
+separator_color = yes
+padding = 15
+horizontal_padding = 15
+frame_width = 2
+sort = no
+idle_threshold = 120
+font = "CaskaydiaCove Nerd Font 13"
+line_height = 4
+markup = full
+format = "<b>%s</b>\n%b"
+alignment = left
+show_age_threshold = 60
+word_wrap = yes
+ignore_newline = no
+stack_duplicates = false
+hide_duplicate_count = yes
+show_indicators = no
+icon_position = right
+progress_bar = true
+progress_bar_horizontal_alignment = center
+max_icon_size = 48
+sticky_history = no
+history_length = 20
+browser = firefox
+always_run_script = true
+title = Dunst
+class = Dunst
+corner_radius = 0
+
+[shortcuts]
+close = super+d
+close_all = super+shift+d
+history = super+ctrl+d
+context = super+ctrl+shift+d
+
+[urgency_low]
+timeout = 3
+background = "#272d3b"
+foreground = "#c0caf5"
+frame_color = "#65ade0"
+
+[urgency_normal]
+timeout = 4
+background = "#272d3b"
+foreground = "#c0caf5"
+frame_color = "#81ca8e"
+
+[urgency_critical]
+timeout = 0
+background = "#272d3b"
+foreground = "#c0caf5"
+frame_color = "#f19b7f"
