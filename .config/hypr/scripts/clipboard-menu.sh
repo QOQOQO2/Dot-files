@@ -22,7 +22,10 @@ case "$choice" in
   rm -f ~/.local/state/bemoji-history.txt
   ;;
 "Clear .cache")
-  rm -rf ~/.cache/* && mkdir -p ~/.cache/nvim && chown $USER:users ~/.cache/nvim
+  rm -rf ~/.cache/* &&
+    mkdir -p ~/.cache/nvim &&
+    chmod 2770 ~/.cache/nvim &&
+    chown $USER:users ~/.cache/nvim
   ;;
 *)
   exit 0

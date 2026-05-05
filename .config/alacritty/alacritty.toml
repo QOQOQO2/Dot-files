@@ -1,0 +1,66 @@
+[window]
+
+[window.padding]
+y = 12
+x = 12
+
+[font]
+normal = { family = "CaskaydiaCove Nerd Font Propo", style = "Bold" }
+size = 10
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+
+[colors.primary]
+foreground = "#c0caf5"
+background = "#1e222a"
+
+[colors.cursor]
+#cursor = "#d0d9fe"
+#text = "#1e222a"
+cursor = "CellForeground"
+text = "CellBackground"
+
+
+[colors.selection]
+background = "#3b3f48"
+text = "CellForeground"
+
+[colors.normal]
+black   = "#0b0c15"
+red     = "#d2556c"
+green   = "#7cd47b"
+yellow  = "#efb184"
+blue    = "#6ca1f3"
+magenta = "#b78df0"
+cyan    = "#69bcf4"
+white   = "#c0caf5"
+
+[colors.bright]
+black   = "#39404a"
+red     = "#f7768e"
+green   = "#85e89d"
+yellow  = "#f4cf8d"
+blue    = "#8fb9ff"
+magenta = "#d9a3ff"
+cyan    = "#8fd3ff"
+white   = "#f0f3f6"
+
+# Keybindings
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"

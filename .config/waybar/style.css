@@ -30,6 +30,7 @@ window#waybar {
 
 #hyprland-workspaces,
 #custom-user\@host,
+#custom-internet,
 #clock,
 #tray,
 #disk,
@@ -45,6 +46,7 @@ window#waybar {
   border-width: 0px;
   padding: 6px 9px;
   margin: 6px -1px;
+  transition: all 0.15s cubic-bezier(0.90, 0.03, 0.69, 0.22);
 }
 
 #workspaces button {
@@ -56,6 +58,7 @@ window#waybar {
   border-radius: 4px;
   background-color: #242434;
   color: #c0caf5;
+  transition: background 0.3s;
 }
 
 #workspaces button.active,
@@ -125,6 +128,7 @@ window#waybar {
 #tray,
 #cpu,
 #network,
+#custom-internet,
 #battery,
 #disk {
   color: #c0caf5;

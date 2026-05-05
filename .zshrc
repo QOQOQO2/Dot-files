@@ -1,3 +1,6 @@
+# vim: ft=zsh
+
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -76,6 +79,7 @@ plugins=(
    zsh-history-substring-search
    zsh-autosuggestions
    zsh-syntax-highlighting
+   nix-shell
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -114,6 +118,7 @@ source $ZSH/oh-my-zsh.sh
 ## Zsh Options ##
 PROMPT="%F{blue}%~ %F{white}>%f "
 export TERMINAL=kitty
+export XDG_CONFIG_HOME="$HOME/.config"
 setopt correct_all
 autoload -Uz compinit
 eval "$(starship init zsh)"
@@ -128,79 +133,121 @@ zstyle ':completion:*' ignore-duplicates true
 zstyle ':completion:*' special-dirs false
 
 ## nix profile thing ##
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
-  source ~/.nix-profile/etc/profile.d/nix.sh
-fi
+# if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
+#   source ~/.nix-profile/etc/profile.d/nix.sh
+# fi
 
 # historu substring search bindkey
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Envi vars #
+export MANPAGER="nvim +Man\!"
+
 ## Alias ##
 alias clear='reset'
 alias npl='nix profile list | grep Name: | sed "s/Name://g; s/ //g; s/\x1b\[[0-9;]*m//g"'
-alias ncg='sudo nix-collect-garbage -d'
+#alias ncg='doas nix-collect-garbage >/dev/null 2>&1 && echo "done :D" || echo "faild D:"'
+#alias ncgd='doas nix-collect-garbage -d >/dev/null 2>&1 && echo "done :D" || echo "faild D:"'
+alias ncg='doas nix-collect-garbage'
+alias ncgd='doas nix-collect-garbage -d'
 alias ff='fastfetch'
-alias sudoe='sudo -E'
-alias pubip='curl https://wtfismyip.com/text'
-alias vislog='tail -f -n 10 /var/lib/webserver/visitor_log.txt'
-alias webown='sudo chown -R webserver:webserver * && sudo chmod -R 750 *'
-alias prism='nix-shell -p prismlauncher --run prismlauncher'
+alias sudo='doas'
+alias pubip='curl -fsSL https://myip.wtf/text'
+alias comp='cat ./comp.gcc | zsh'
+alias svim='doas nvim'
+alias fixnvimcache='doas chown $(echo $USER):users ~/.cache/nvim/* -R'
+#alias nixrebuild='doas nixos-rebuild switch'
+#alias homeswitch='nix run home-manager -- switch --flake ~/Flakes'
+#alias homeswitch='home-manager switch --flake ~/Flakes'
+#alias homeupdate='nix flake update --flake ~/Flakes'
+alias homenews='home-manager news'
+alias nixedit='svim ~/Flakes/sys/* && ask "Do you want to rebuild?" && nixrebuild'
+alias hypredit='nvim ~/.config/hypr/*(N.) ~/.config/hypr/hyprland-config/*(N.) && hyprctl reload'
+alias zshedit='nvim ~/.zshrc && source ~/.zshrc'
+alias rustc='cargo check'
+alias rustr='cargo run'
+alias rustb='cargo build --release'
+alias rustw='cargo watch -x run'
+alias icat='kitten icat'
 
 ## Steam Stuff ##
 alias terraria='steam-run ~/.local/share/Steam/steamapps/common/Terraria/Terraria'
+alias terrariaserver='steam-run ~/.local/share/Steam/steamapps/common/Terraria/TerrariaServer'
 alias tmodloader='steam-run ~/.local/share/Steam/steamapps/common/tModLoader/start-tModLoader.sh'
 alias tmodloaderserver='steam-run ~/.local/share/Steam/steamapps/common/tModLoader/start-tModLoaderServer.sh'
 
 ## Functions ##
 
-mc() {
-  if [[ $# -eq 0 ]]; then
-    cat <<'EOF'
-Usage: mc <subcommand> [args...]
-Subcommands:
-  attach Attaches to the server via tmux
-  log Prints the logs
-  start Start the server
-  stop Graceful stop
-  restart Restart with countdown
-  status Show systemd status
-EOF
+ask() {
+    read -q "response?${1} (y/n) "
+    echo
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+homeedit() {
+  nvim ~/Flakes/*(N.)
+    if ask "Do you want to update?"; then
+        homeupdate
+        return 0
+    fi
+    if ask "Do you want to switch?"; then
+        homeswitch
+    fi
+}
+
+storename() {
+  readlink -e $(which ${1})
+}
+
+nixrebuild() {
+  cd /home/qoqoqo2/Flakes || return 1
+  git add .
+
+  if doas nixos-rebuild switch --flake /home/qoqoqo2/Flakes/sys#hypr; then
+    local gen=$(doas nixos-rebuild list-generations | grep 'True$' | awk '{print $1}')    
+
+    git commit -m "System Rebuild #$gen at $(date '+%Y-%m-%d %H:%M:%S')"
+    timeout 5s git push origin main || echo "Offline, commit saved locally."
+    return 0
+  else
+    echo "System build failed. No commit made."
     return 1
   fi
-
-  local subcmd="$1"
-  shift
-  local server_name="qoqoqo2-server"
-  local unit="minecraft-server-${server_name}"
-  local tmux_socket="/run/minecraft/${server_name}.sock"
-  local tmux_target="0"
-
-  case "$subcmd" in
-    attach)
-      tmux -S $tmux_socket attach -t $tmux_target
-      ;;
-    log)
-      journalctl -u "$unit" -f
-      ;;
-    start)
-      sudo systemctl start "$unit"
-      echo "Started"
-      ;;
-    stop)
-      sudo systemctl stop "$unit"
-      echo "Stopped"
-      ;;
-    restart)
-      sudo systemctl restart "$unit"
-      echo "Restarted"
-      ;;
-    status)
-      systemctl status "$unit" --no-pager
-      ;;
-    *)
-      echo "Unknown: $subcmd"
-      return 1
-      ;;
-  esac
 }
+
+homeswitch() {
+  cd /home/qoqoqo2/Flakes || return 1
+  git add . 
+
+  if home-manager switch -b backup --flake /home/qoqoqo2/Flakes#qoqoqo2; then
+    local gen=$(home-manager generations | head -n 1 | awk '{print $5}')
+    
+    git commit -m "Home Rebuild #$gen at $(date '+%Y-%m-%d %H:%M:%S')"
+    timeout 5s git push origin main || echo "Offline, commit saved locally."
+    zsh
+    return 0
+  else
+    echo "Home Manager build failed. No commit made."
+    return 1
+  fi
+}
+
+homeupdate() {
+  cd /home/qoqoqo2/Flakes || return 1
+  if nix flake update; then
+    homeswitch
+  else
+    echo "Flake update failed."
+    return 1
+  fi
+}
+
+## Plugin Override ##
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#636DA4'
+
+source ~/.zshprivate
