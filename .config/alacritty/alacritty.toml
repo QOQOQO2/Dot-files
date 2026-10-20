@@ -13,54 +13,86 @@ save_to_clipboard = true
 
 [cursor]
 style = { shape = "Block", blinking = "On" }
+vi_mode_style = { shape = "Underline", blinking = "Off" }
 
+[bell]
+command = { program = "pw-play", args = ["/run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"] }
+
+[terminal]
+shell = "zsh"
+
+[mouse]
+hide_when_typing = true
+
+# --- Catppuccin theme ---
 [colors.primary]
-foreground = "#c0caf5"
-background = "#1e222a"
+foreground = "#cdd6f4"
+background = "#1e1e2e"
 
 [colors.cursor]
-#cursor = "#d0d9fe"
-#text = "#1e222a"
+# cursor = "#cdd6f4"
 cursor = "CellForeground"
 text = "CellBackground"
 
-
 [colors.selection]
-background = "#3b3f48"
+background = "#353748"
 text = "CellForeground"
 
 [colors.normal]
-black   = "#0b0c15"
-red     = "#d2556c"
-green   = "#7cd47b"
-yellow  = "#efb184"
-blue    = "#6ca1f3"
-magenta = "#b78df0"
-cyan    = "#69bcf4"
-white   = "#c0caf5"
+black = "#45475a"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#a6adc8"
 
 [colors.bright]
-black   = "#39404a"
-red     = "#f7768e"
-green   = "#85e89d"
-yellow  = "#f4cf8d"
-blue    = "#8fb9ff"
-magenta = "#d9a3ff"
-cyan    = "#8fd3ff"
-white   = "#f0f3f6"
+black = "#585b70"
+red = "#f37799"
+green = "#89d88b"
+yellow = "#ebd391"
+blue = "#74a8fc"
+magenta = "#f2aede"
+cyan = "#6bd7ca"
+white = "#bac2de"
+
+# --- Old theme ---
+# [colors.primary]
+# foreground = "#c0caf5"
+# background = "#1e222a"
+#
+# [colors.cursor]
+# cursor = "CellForeground"
+# text = "CellBackground"
+#
+# [colors.selection]
+# background = "#3b3f48"
+# text = "CellForeground"
+#
+# [colors.normal]
+# black   = "#0b0c15"
+# red     = "#d2556c"
+# green   = "#7cd47b"
+# yellow  = "#efb184"
+# blue    = "#6ca1f3"
+# magenta = "#b78df0"
+# cyan    = "#69bcf4"
+# white   = "#c0caf5"
+#
+# [colors.bright]
+# black   = "#39404a"
+# red     = "#f7768e"
+# green   = "#85e89d"
+# yellow  = "#f4cf8d"
+# blue    = "#8fb9ff"
+# magenta = "#d9a3ff"
+# cyan    = "#8fd3ff"
+# white   = "#f0f3f6"
 
 # Keybindings
 [[keyboard.bindings]]
-key = "Plus"
+key = "Tab"
 mods = "Control"
-action = "IncreaseFontSize"
-
-[[keyboard.bindings]]
-key = "Minus"
-mods = "Control"
-action = "DecreaseFontSize"
-
-[[keyboard.bindings]]
-key = "Key0"
-mods = "Control"
-action = "ResetFontSize"
+action = "ToggleViMode"

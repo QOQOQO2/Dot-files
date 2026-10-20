@@ -17,6 +17,31 @@ window#waybar {
   padding: 0px 11px;
 }
 
+menu {
+  background-color: rgb(39, 45, 59);
+  border: 2px solid rgb(92, 153, 225);
+  color: #c0caf5;
+  border-radius: 0;
+  transition: all 0.15s cubic-bezier(0.90, 0.03, 0.69, 0.22);
+  padding: 4px;
+}
+
+menuitem {
+  border-radius: 10px;
+  border-width: 0px;
+  padding: 6px 9px;
+  margin: 3px 6px;
+  transition: all 0.15s cubic-bezier(0.90, 0.03, 0.69, 0.22);
+  color: #c0caf5;
+  background-color: #3d3d4e;
+}
+
+menuitem:hover {
+  margin-left: 3px;
+  margin-right: 3px;
+  background-color: #5c5c6e;
+}
+
 #waybar > * {
   padding: 2px 6px;
 }
@@ -36,9 +61,12 @@ window#waybar {
 #disk,
 #pulseaudio-slider,
 #pulseaudio,
+#temperature.cpu,
+#temperature.gpu,
 #cpu,
 #network,
 #battery,
+#custom-power,
 #custom-lock,
 #custom-reboot,
 #custom-poweroff {
@@ -126,6 +154,8 @@ window#waybar {
 }
 
 #tray,
+#temperature.cpu,
+#temperature.gpu,
 #cpu,
 #network,
 #custom-internet,
@@ -133,6 +163,19 @@ window#waybar {
 #disk {
   color: #c0caf5;
   background-color: #3d3d4e;
+}
+
+#custom-power {
+  color: #1c001b;
+  background-color: #cba6f7;
+  font-size: 18px; 
+  padding: 0px 12px;
+  margin: 4px 0px;
+  border-radius: 6px;
+}
+
+#custom-power:hover {
+  background-color: #dbbffe;
 }
 
 #custom-lock {

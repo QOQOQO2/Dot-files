@@ -2,30 +2,17 @@
 
 choice="$(printf '%s\n' \
   "Wipe Clipboard" \
-  "Show Clipboard History Count" \
-  "Clear Fuzzel History" \
-  "Clear Bemoji History" \
-  "Clear .cache" |
-  fuzzel --dmenu)"
+  "Clear .cache" | rofi -dmenu -p " ")"
 
 case "$choice" in
 "Wipe Clipboard")
   rm -f ~/.cache/cliphist/db
   ;;
-"Show Clipboard History Count")
-  cliphist list | wc -l | fuzzel --dmenu --prompt "Entries:"
-  ;;
-"Clear Fuzzel History")
-  rm -f ~/.cache/fuzzel
-  ;;
-"Clear Bemoji History")
-  rm -f ~/.local/state/bemoji-history.txt
-  ;;
 "Clear .cache")
-  rm -rf ~/.cache/* &&
-    mkdir -p ~/.cache/nvim &&
-    chmod 2770 ~/.cache/nvim &&
-    chown $USER:users ~/.cache/nvim
+  rm -rf ~/.cache/*
+  mkdir -p ~/.cache/nvim
+  chmod 2770 ~/.cache/nvim
+  chown $USER:users ~/.cache/nvim
   ;;
 *)
   exit 0

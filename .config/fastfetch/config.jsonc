@@ -6,7 +6,6 @@
       "top": 1
     }
   },
-
   "modules": [
     "title",
     "separator",
@@ -35,10 +34,12 @@
       "temp": true
     },
     "memory",
-    "disk", 
+    "disk",
     "battery",
     "poweradapter",
     "locale",
+    "localip",
+    // "publicip",
     "break",
     "colors"
   ]

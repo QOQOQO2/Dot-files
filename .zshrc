@@ -1,5 +1,9 @@
-# vim: ft=zsh
+# Lanuch tmux
+if [[ -z "$TMUX" && $- == *i* ]]; then
+  exec tmux new-session -A -s main
+fi
 
+# vim: ft=zsh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -117,11 +121,16 @@ source $ZSH/oh-my-zsh.sh
 
 ## Zsh Options ##
 PROMPT="%F{blue}%~ %F{white}>%f "
-export TERMINAL=kitty
+export TERMINAL=alacritty
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="$HOME/.local/bin:$PATH"
 setopt correct_all
+setopt NO_LIST_BEEP
+setopt NO_HIST_BEEP
+unsetopt BEEP
 autoload -Uz compinit
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 ## Zsh Styles ##
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -132,11 +141,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|=*' 'l:|=*'
 zstyle ':completion:*' ignore-duplicates true
 zstyle ':completion:*' special-dirs false
 
-## nix profile thing ##
-# if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
-#   source ~/.nix-profile/etc/profile.d/nix.sh
-# fi
-
 # historu substring search bindkey
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -144,32 +148,31 @@ bindkey '^[[B' history-substring-search-down
 # Envi vars #
 export MANPAGER="nvim +Man\!"
 
+# tmux thing
+autoload -U add-zsh-hook
+add-zsh-hook preexec _clear_tmux_comp_status
+
 ## Alias ##
-alias clear='reset'
+alias clear='reset && printf "\e[3J"'
 alias npl='nix profile list | grep Name: | sed "s/Name://g; s/ //g; s/\x1b\[[0-9;]*m//g"'
-#alias ncg='doas nix-collect-garbage >/dev/null 2>&1 && echo "done :D" || echo "faild D:"'
-#alias ncgd='doas nix-collect-garbage -d >/dev/null 2>&1 && echo "done :D" || echo "faild D:"'
-alias ncg='doas nix-collect-garbage'
-alias ncgd='doas nix-collect-garbage -d'
+alias ncg='doas nix-collect-garbage -d'
+alias nix-clean-up='~/Documents/scripts/nix-clean-up.sh'
 alias ff='fastfetch'
 alias sudo='doas'
+alias ls='eza -g'
+alias cd='z'
 alias pubip='curl -fsSL https://myip.wtf/text'
-alias comp='cat ./comp.gcc | zsh'
 alias svim='doas nvim'
+alias v='nvim'
 alias fixnvimcache='doas chown $(echo $USER):users ~/.cache/nvim/* -R'
-#alias nixrebuild='doas nixos-rebuild switch'
-#alias homeswitch='nix run home-manager -- switch --flake ~/Flakes'
-#alias homeswitch='home-manager switch --flake ~/Flakes'
-#alias homeupdate='nix flake update --flake ~/Flakes'
 alias homenews='home-manager news'
 alias nixedit='svim ~/Flakes/sys/* && ask "Do you want to rebuild?" && nixrebuild'
-alias hypredit='nvim ~/.config/hypr/*(N.) ~/.config/hypr/hyprland-config/*(N.) && hyprctl reload'
-alias zshedit='nvim ~/.zshrc && source ~/.zshrc'
+alias hypredit='nvim ~/.config/hypr/hyprland.lua && hyprctl reload'
+alias zshedit='nvim ~/.config/zsh/.zshrc && source ~/.config/zsh/.zshrc'
 alias rustc='cargo check'
 alias rustr='cargo run'
 alias rustb='cargo build --release'
 alias rustw='cargo watch -x run'
-alias icat='kitten icat'
 
 ## Steam Stuff ##
 alias terraria='steam-run ~/.local/share/Steam/steamapps/common/Terraria/Terraria'
@@ -180,13 +183,54 @@ alias tmodloaderserver='steam-run ~/.local/share/Steam/steamapps/common/tModLoad
 ## Functions ##
 
 ask() {
-    read -q "response?${1} (y/n) "
+    read -q "response?${1} (y/N) "
     echo
     if [[ "$response" =~ ^[Yy]$ ]]; then
         return 0
     else
         return 1
     fi
+}
+
+# c++ compile function
+comp() {
+  local _shPath
+  _shPath="$HOME/Documents/comp.sh"
+
+  if [[ -f ./comp.sh ]]; then
+    ./comp.sh
+    return 0;
+  fi
+
+  if [[ -f $_shPath ]]; then
+    cp $_shPath .
+    chmod +x ./comp.sh
+    return 0;
+  fi
+
+  echo "Compile file at '$_shPath' not found!"
+  return 1;
+}
+
+# usaco file template
+usaco() {
+  read "folder_name?Enter folder name: "
+  mkdir "$folder_name"
+  cd "$folder_name"
+
+  comp # make comp file
+  if ask "Do you want to use legacy io? (file io)"; then
+    read "problem_name?Enter file io name: "
+    touch "${problem_name}.in"
+    touch "${problem_name}.out"
+  fi
+  touch main.cpp
+}
+
+_clear_tmux_comp_status() {
+  if [[ -n "$TMUX" ]]; then
+    tmux set -g @compilation_status ""
+  fi
 }
 
 homeedit() {
@@ -201,7 +245,24 @@ homeedit() {
 }
 
 storename() {
-  readlink -e $(which ${1})
+  local _binPath
+  _binPath=$(readlink -e "$(which "$1")")
+  local _nixPath
+  _nixPath="$_binPath"
+  local _pathSlashes
+  _pathSlashes="${_nixPath//[^\/]}"
+  
+  if [[ $_binPath == "" ]]; then
+    return 1
+  fi
+
+  while (( ${#_pathSlashes} >= 4 )); do
+    _nixPath="${_nixPath%/*}"
+    _pathSlashes="${_nixPath//[^\/]}"
+  done
+
+  echo "$_nixPath"
+  return 0
 }
 
 nixrebuild() {
@@ -250,4 +311,4 @@ homeupdate() {
 ## Plugin Override ##
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#636DA4'
 
-source ~/.zshprivate
+# source ~/.config/zsh/.zshprivate
